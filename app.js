@@ -10,6 +10,9 @@ mongoose.connect("mongodb:localhost/crm_dev");
 app.set("view engin", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(stormpath.init(app, {
+  application: process.env.STORMPATH_URL,
+}));
 
 //mongoose/model config
 var crmSchema = mongoose.Schema({
@@ -24,6 +27,6 @@ var Customer = mongoose.model("Customer", crmSchema);
 //Rest Routes
 
 //app launch
-app.listen(process.env || 3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log("CRM Server is Running!");
 })
