@@ -6,11 +6,11 @@ var express = require('express'),
 
 //app config
 app.use(express.static("public"));
-app.set("view engin", "ejs");
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(stormpath.init(app, {
   application: process.env.STORMPATH_URL,
 }));
+app.set("view engin", "ejs");
+app.use(bodyParser.urlencoded({extended: true}));
 
 // //mongoose/model config
 // var crmSchema = mongoose.Schema({
@@ -24,7 +24,7 @@ app.use(stormpath.init(app, {
 
 //Rest Routes
 app.get("/", function(req, res) {
-  res.render("/login");
+  res.send("PLease <a href='/login'>login</a>");
 });
 //app launch
 app.listen(process.env.PORT || 3000, function() {
