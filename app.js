@@ -25,7 +25,9 @@ var crmSchema = mongoose.Schema({
 var Customer = mongoose.model("Customer", crmSchema);
 
 //Rest Routes
-
+app.get("/", function(req, res) {
+  res.render("/login");
+});
 //app launch
 app.listen(process.env.PORT || 3000, function() {
   console.log("CRM Server is Running!");
