@@ -24,11 +24,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 //   created: {type: Date, default: Date.now}
 // });
 //
+
+
 // var Customer = mongoose.model("Customer", crmSchema);
 
 //Rest Routes
 app.get("/", function(req, res) {
-  res.send("PLease <a href='/login'>login</a>");
+  res.redirect('/login');
 });
 //app launch
 app.listen(process.env.PORT || 3000, function() {
