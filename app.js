@@ -32,6 +32,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get("/", function(req, res) {
   res.redirect('/login');
 });
+
+app.get("/userInfo", function(req, res) {
+  res.render("This will be the custom data form, for users to enter thier info. Cant add customer until this iset.")
+});
 //app launch
 app.listen(process.env.PORT || 3000, function() {
   console.log("CRM Server is Running!");
