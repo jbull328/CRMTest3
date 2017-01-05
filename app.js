@@ -34,7 +34,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/userInfo", function(req, res) {
-  res.response("This will be the custom data form, for users to enter thier info. Cant add customer until this iset.")
+  res.send("This will be the custom data form, for users to enter thier info. Cant add customer until this iset.")
 });
 //app launch
 app.listen(process.env.PORT || 3000, function() {
