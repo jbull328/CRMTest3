@@ -44,7 +44,7 @@ app.get("/userInfo", function(req, res) {
   res.send("This will be the custom data form, for users to enter thier info. Cant add customer until this iset.");
 });
 
-app.get("/newCustomer", function(req, res) {
+app.get("customers/newCustomer", function(req, res) {
   res.send("This will be the new customer form!");
 });
 //app launch
