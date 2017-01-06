@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.mongdbUri, function (err, database) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
@@ -32,7 +32,6 @@ mongodb.MongoClient.connect(process.env.mongdbUri, function (err, database) {
   // Save database object from the callback for reuse.
   db = database;
   console.log("Database connection ready");// //mongoose/model config
-var mongdbUri = 'mongodb://<dbuser>:<dbpassword>@ds151048.mlab.com:51048/heroku_2vbj6xl4';
 // var crmSchema = mongoose.Schema({
 //   cusName: String,
 //   cusEmail: String,
