@@ -2,7 +2,8 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    stormpath = require('express-stormpath');
+    stormpath = require('express-stormpath'),
+    mongodb = require('mongodb');
 
 //app config
 app.use(express.static("public"));
@@ -16,7 +17,11 @@ app.use(stormpath.init(app, {
 app.set("view engin", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
+
 // //mongoose/model config
+var mongdbUri = 'mongodb://<dbuser>:<dbpassword>@ds151048.mlab.com:51048/heroku_2vbj6xl4';
+mongoose.connect(mongodbUri);
+var db = mongoose.connection;
 // var crmSchema = mongoose.Schema({
 //   cusName: String,
 //   cusEmail: String,
