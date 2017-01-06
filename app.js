@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+mongodb.MongoClient.connect(process.env.mongdbUri, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
