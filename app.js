@@ -5,6 +5,8 @@ var express = require('express'),
     stormpath = require('express-stormpath'),
     mongodb = require('mongodb');
 
+var ObjectID = mongodb.ObjectID;
+
 //app config
 app.use(express.static("public"));
 app.use(stormpath.init(app, {
