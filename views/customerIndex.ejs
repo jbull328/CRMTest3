@@ -1,28 +1,29 @@
 <% include ./partials/header %>
 
 <div class="ui container" id="cusomersDisplay">
+
   <table class="ui celled table">
   <thead>
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Email</th>
-      <th>Phone</th>
       <th>Address</th>
       <th>Status</th>
       <th>Date Joined</th>
     </tr>
   </thead>
   <tbody>
+    <% customers.forEach(function(customer) { %>
     <tr>
-      <td>Jo</td>
-      <td>Bob</td>
-      <td>jbob@myemail.com</td>
-      <td>222-222-2222</td>
-      <td>The Place</td>
+      <td><%= customer.cusFirstName %></td>
+      <td><%= customer.cusLastName %></td>
+      <td><%= customer.cusEmail %></td>
+      <td><%= customer.cusAddress %></td>
       <td>Thumbs Up</td>
-      <td>That day</td>
+      <td><%= customer.date %></td>
     </tr>
+  <% }); %>
   </tbody>
   </table>
 </div>

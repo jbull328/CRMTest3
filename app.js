@@ -51,9 +51,17 @@ app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
         if(err) {
             res.redirect("/");
         } else {
-            res.render("customerIndex", {organization: foundOrganization});
+            Customer.find({}, function(err, allCustomers) {
+              if (err) {
+                  console.log(err);
+              } else {
+                  console.log(allCustomers);
+                  res.render("customerIndex", {organization: foundOrganization, customers: allCustomers});
+              }
+            });
         }
     });
+
 });
 
 app.get("/userNew",stormpath.loginRequired, function(req, res) {
@@ -98,7 +106,7 @@ app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
     if(err) {
       console.log(err);
     } else {
-      res.redirect("/customerIndex/", {organization: foundOrganization});
+      res.redirect("/customerIndex/", {organization: orgId});
     }
   });
 });
