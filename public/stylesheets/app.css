@@ -1,0 +1,39 @@
+.masthead {
+  min-height: 700px;
+  padding: 1em 0em;
+
+}
+
+.masthead h1.ui.header {
+     margin-top: 3em;
+     margin-bottom: 0em;
+     font-size: 4em;
+     font-weight: normal;
+     color: #555F61;
+   }
+   .masthead h2 {
+     font-size: 1.7em;
+     font-weight: normal;
+     color: #555F61;
+   }
+
+#mastheadStyle {
+  background-image: url(../img/asanoha-400px.png);
+}
+#newCusFormMain {
+  margin: 80px auto 0 auto;
+  width: 60%;
+
+}
+
+#newUserFormMain {
+  margin: 80px auto 0 auto;
+  width: 60%;
+
+}
+
+#cusomersDisplay {
+  margin: 80px auto 0 auto;
+  width: 60%;
+
+}

@@ -1,0 +1,23 @@
+<% include ./partials/header %>
+
+<div class="ui container" id="newUserFormMain">
+  <div class="ui huge header">Sign Up</div>
+  <form class="ui form" action="/userNew" method="POST">
+    <div class="field">
+      <label>Company Name</label>
+      <input type="text" name="orgName" placeholder="Organization Name">
+    </div>
+    <div class="field">
+      <label>First Name</label>
+      <input type="text" name="givenName" value="<%= user.givenName %>" placeholder="First Name">
+    </div>
+    <div class="field">
+      <label>Last Name</label>
+      <input type="text" name="surname" value="<%= user.surname %>" placeholder="Last Name">
+
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+  </form>
+</div>
+<script src="/scripts/newCustomerSendData.js"></script>
+<% include ./partials/footer %>
