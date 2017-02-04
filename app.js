@@ -2,6 +2,8 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
+    Organization = require("./public/models/organization"),
+    Customer = require("./public/models/customer"),
     stormpath = require('express-stormpath');
 
 
@@ -15,6 +17,7 @@ app.use(stormpath.init(app, {
   apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
   secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
   application:  process.env.STORMPATH_URL || 'url',
+  expandCustomData: true,
 }));
 
 
@@ -26,21 +29,8 @@ var mongodbUri = "mongodb://heroku_2vbj6xl4:713tteam22ns19hkqj90ioeeuc@ds151048.
 mongoose.connect(mongodbUri);
 
 var db = mongoose.connection;
-var organizationSchema = new mongoose.Schema({
-  orgName : String,
-  orgId : String,
-  givenName : String,
-  surname : String,
-});
-var Organization = mongoose.model("Organization", organizationSchema);
-//customer Schema
-var customerSchema = new mongoose.Schema({
-  cusFirstName : String,
-  cusLastName : String,
-  cusAddress : String,
-  cusEmail : String,
-});
-var Customer = mongoose.model("Customer", customerSchema);
+
+
 //Rest Routes
 app.get("/", function(req, res) {
   res.render("landing");
@@ -72,8 +62,18 @@ app.get('/customers/new', stormpath.loginRequired, function(req, res) {
   res.render("newCustomer");
 });
 
+
 app.post('/userNew', stormpath.loginRequired, function(req, res) {
   var orgName = req.body.orgName;
+
+  req.user.customData.userOrg = orgName;
+  req.user.customData.save(function(err) {
+    if (err) {
+      console.log(err);  // this will throw an error if something breaks when you try to save your changes
+    } else {
+    }
+  });
+
   // TODO user regex to remove spaces and capitals from orgId
   var orgId = req.body.orgName;
   var givenName = req.body.givenName;
@@ -106,7 +106,7 @@ app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
     if(err) {
       console.log(err);
     } else {
-      res.redirect("/customerIndex/", {organization: orgId});
+      res.redirect("/customerIndex/" + orgId);
     }
   });
 });
