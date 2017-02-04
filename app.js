@@ -2,6 +2,8 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
+    Organization = require("./public/models/organization"),
+    Customer = require("./public/models/customer"),
     stormpath = require('express-stormpath');
 
 
@@ -26,21 +28,8 @@ var mongodbUri = "mongodb://heroku_2vbj6xl4:713tteam22ns19hkqj90ioeeuc@ds151048.
 mongoose.connect(mongodbUri);
 
 var db = mongoose.connection;
-var organizationSchema = new mongoose.Schema({
-  orgName : String,
-  orgId : String,
-  givenName : String,
-  surname : String,
-});
-var Organization = mongoose.model("Organization", organizationSchema);
-//customer Schema
-var customerSchema = new mongoose.Schema({
-  cusFirstName : String,
-  cusLastName : String,
-  cusAddress : String,
-  cusEmail : String,
-});
-var Customer = mongoose.model("Customer", customerSchema);
+
+
 //Rest Routes
 app.get("/", function(req, res) {
   res.render("landing");
@@ -106,7 +95,7 @@ app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
     if(err) {
       console.log(err);
     } else {
-      res.redirect("/customerIndex/", {organization: orgId});
+      res.redirect("/customerIndex/" + orgId);
     }
   });
 });
