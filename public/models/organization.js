@@ -5,6 +5,7 @@ var organizationSchema = new mongoose.Schema({
   orgId : String,
   givenName : String,
   surname : String,
+  userEmail: String,
 });
 var Organization = mongoose.model("Organization", organizationSchema);
 
