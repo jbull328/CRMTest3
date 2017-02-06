@@ -5,6 +5,7 @@ var customerSchema = new mongoose.Schema({
   cusLastName : String,
   cusAddress : String,
   cusEmail : String,
+  time : { type : Date, default: Date.now },
 });
 var Customer = mongoose.model("Customer", customerSchema);
 
