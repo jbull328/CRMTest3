@@ -11,6 +11,7 @@
       <th>Address</th>
       <th>Status</th>
       <th>Date Joined</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,9 @@
       <td><%= customer.cusAddress %></td>
       <td>Thumbs Up</td>
       <td><%= customer.date %></td>
+      <td>
+      <a href='/customer/<%= customer._id %>'>Details</a>
+      </td>
     </tr>
   <% }); %>
   </tbody>

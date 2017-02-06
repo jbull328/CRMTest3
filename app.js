@@ -32,6 +32,7 @@ var db = mongoose.connection;
 app.get("/", function(req, res) {
   res.render("landing");
 });
+
 //This is the customer Index route that shows a list of customerSchema
 app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
     Organization.findById(req.params.orgId, function(err, foundOrganization) {
@@ -48,12 +49,24 @@ app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
             });
         }
     });
-
 });
+
 
 app.get("/userNew",stormpath.loginRequired, function(req, res) {
   // TODO: add logic, if user is already created an account/organization. Popup with modal to go to customer list.
   res.render("userNew")
+});
+
+app.get("/customer/:id", stormpath.loginRequired, function(req, res) {
+  Customer.findById(req.params.id, function(err, customerRef) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(customerRef);
+      res.render("customer", {customer: customerRef});
+    }
+  });
+
 });
 
 app.get('/customers/new', stormpath.loginRequired, function(req, res) {
@@ -69,7 +82,6 @@ app.post('/userNew', stormpath.loginRequired, function(req, res) {
     } else {
     }
   });
-
   // TODO user regex to remove spaces and capitals from orgId
   var userEmail = req.user.email;
   var orgId = req.body.orgName;
@@ -85,6 +97,7 @@ app.post('/userNew', stormpath.loginRequired, function(req, res) {
    }
  });
 });
+
 
 app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
   var cusFirstName = req.body.cusFirstName;
@@ -107,6 +120,7 @@ app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
     }
   });
 });
+
 
 //app launch
 app.listen(process.env.PORT || 3000, function() {
