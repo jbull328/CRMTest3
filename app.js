@@ -17,8 +17,11 @@ app.use(stormpath.init(app, {
   apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
   secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
   application:  process.env.STORMPATH_URL || 'url',
-  expandCustomData: true,
+  expand: {
+    customData: true,
+  }
 }));
+
 
 
 
@@ -52,9 +55,15 @@ app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
 });
 
 
-app.get("/userNew",stormpath.loginRequired, function(req, res) {
+app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res) {
+  var orgId = req.user.customData.userOrg;
   // TODO: add logic, if user is already created an account/organization. Popup with modal to go to customer list.
-  res.render("userNew")
+  if (req.user.customData.userOrg != null) {
+    res.redirect("/customerIndex/" + orgId);
+  } else {
+    res.render("userNew");
+  }
+
 });
 
 app.get("/customer/:id", stormpath.loginRequired, function(req, res) {
@@ -75,7 +84,9 @@ app.get('/customers/new', stormpath.loginRequired, function(req, res) {
 
 
 app.post('/userNew', stormpath.loginRequired, function(req, res) {
-  req.user.customData.userOrg = orgId;
+  var orgIdSimple = req.body.orgName;
+  var orgIdSimple = orgIdSimple.replace(/\s/g, '');
+  req.user.customData.userOrg = orgIdSimple;
   req.user.customData.save(function(err) {
     if (err) {
       console.log(err);  // this will throw an error if something breaks when you try to save your changes
@@ -93,7 +104,7 @@ app.post('/userNew', stormpath.loginRequired, function(req, res) {
    if(err) {
        console.log(err);
    } else {
-      res.redirect("/customerIndex/" + orgId);
+      res.redirect("/customerIndex/" + orgIdSimple);
    }
  });
 });
