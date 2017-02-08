@@ -139,7 +139,19 @@ app.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(re
   Customer.findByIdAndUpdate(req.params.id, req.body.customer, function(err, updatedCustomer) {
     if (err) {
       console.log(err);
-      res.redirect("customerIndex/" + orgId)
+      res.redirect("customerIndex/" + orgId);
+    } else {
+      res.redirect("/customerIndex/" + orgId);
+    }
+  });
+});
+
+app.delete("/customer/:id", stormpath.loginRequired, stormpath.getUser, function(req, res) {
+  var orgId = req.user.customData.userOrg;
+  Customer.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      console.log(err);
+      res.redirect("customerIndex/" + orgId);
     } else {
       res.redirect("/customerIndex/" + orgId);
     }

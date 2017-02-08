@@ -12,6 +12,7 @@
       <th>Status</th>
       <th>Date Joined</th>
       <th></th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,13 @@
       <td><%= customer.time %></td>
       <td>
       <a href='/customer/<%= customer._id %>'>Details</a>
+      </td>
+      <td>
+        <form id="delete" action="/customer/<%= customer._id %>?_method=DELETE" method="POST">
+        <button class="circular ui icon button">
+          <i class="icon ban"></i>
+        </button
+        </form>
       </td>
     </tr>
   <% }); %>
