@@ -4,7 +4,9 @@ var express = require('express'),
     mongoose = require('mongoose'),
     Organization = require("./public/models/organization"),
     Customer = require("./public/models/customer"),
-    stormpath = require('express-stormpath');
+    stormpath = require('express-stormpath'),
+    methodOverride = require("method-override"),
+    expressSanitizer = require("express-sanitizer");
 
 
 //app config
@@ -21,6 +23,7 @@ app.use(stormpath.init(app, {
     customData: true,
   }
 }));
+app.use(methodOverride('_method'));
 
 
 
@@ -57,7 +60,6 @@ app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
 
 app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res) {
   var orgId = req.user.customData.userOrg;
-  // TODO: add logic, if user is already created an account/organization. Popup with modal to go to customer list.
   if (req.user.customData.userOrg != null) {
     res.redirect("/customerIndex/" + orgId);
   } else {
@@ -93,7 +95,6 @@ app.post('/userNew', stormpath.loginRequired, function(req, res) {
     } else {
     }
   });
-  // TODO user regex to remove spaces and capitals from orgId
   var userEmail = req.user.email;
   var orgId = req.body.orgName;
   var givenName = req.body.givenName;
@@ -132,6 +133,18 @@ app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
   });
 });
 
+app.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(req, res) {
+  // req.body.customer.body = req.sanitize(req.customer.customer.body);
+  var orgId = req.user.customData.userOrg;
+  Customer.findByIdAndUpdate(req.params.id, req.body.customer, function(err, updatedCustomer) {
+    if (err) {
+      console.log(err);
+      res.redirect("customerIndex/" + orgId)
+    } else {
+      res.redirect("/customerIndex/" + orgId);
+    }
+  });
+});
 
 //app launch
 app.listen(process.env.PORT || 3000, function() {

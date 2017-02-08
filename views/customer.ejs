@@ -4,25 +4,28 @@
 
   <div class="ui container" id="newCusFormMain">
     <div class="ui huge header">Create a New Customer</div>
-    <form class="ui form" action="/newCustomer" method="POST">
+    <form class="ui form" action="/customer/<%= customer._id %>?_method=PUT" method="POST">
     <div class="field">
       <label>First Name</label>
-      <input type="text" name="cusFirstName" value="<%= customer.cusFirstName %>" placeholder="First Name">
+      <input type="text" name="customer[cusFirstName]" value="<%= customer.cusFirstName %>" placeholder="First Name">
     </div>
     <div class="field">
       <label>Last Name</label>
-      <input type="text" name="cusLastName" value="<%= customer.cusLastName %>" placeholder="Last Name">
+      <input type="text" name="customer[cusLastName]" value="<%= customer.cusLastName %>" placeholder="Last Name">
     </div>
     <div class="field">
       <label>Address</label>
-      <input type="text" name="cusAddress" value="<%= customer.cusAddress %>" placeholder="Address">
+      <input type="text" name="customer[cusAddress]" value="<%= customer.cusAddress %>" placeholder="Address">
     </div>
     <div class="field">
       <label>Email</label>
-      <input type="text" name="cusEmail" value="<%= customer.cusEmail %>" placeholder="Email">
+      <input type="text" name="customer[cusEmail]" value="<%= customer.cusEmail %>" placeholder="Email">
     </div>
     <button class="ui button" type="submit">Submit</button>
     <button class="ui button" type="submit">Cancel</button>
+    <form id="delete" action="/customer/<%= customer._id %>?_method=DELETE" method="POST">
+      <button  class="ui red basic button">Delete</button>
+    </form>
     </form>
   </div>
 </div>
