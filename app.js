@@ -153,6 +153,7 @@ app.delete("/customer/:id", stormpath.loginRequired, stormpath.getUser, function
       console.log(err);
       res.redirect("customerIndex/" + orgId);
     } else {
+      console.log("success")
       res.redirect("/customerIndex/" + orgId);
     }
   });
