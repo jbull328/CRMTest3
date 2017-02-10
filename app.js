@@ -33,11 +33,14 @@ var mongodbUri = "mongodb://heroku_2vbj6xl4:713tteam22ns19hkqj90ioeeuc@ds151048.
 mongoose.connect(mongodbUri);
 var db = mongoose.connection;
 
+////////////////////////////Show Landing Page Route////////////////////////////////////
 
 //Rest Routes
 app.get("/", function(req, res) {
   res.render("landing");
 });
+
+///////////////////////////Show Customer Index Route////////////////////////////////
 
 //This is the customer Index route that shows a list of customerSchema
 app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
@@ -57,6 +60,7 @@ app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
     });
 });
 
+///////////////////////////////New Organization Check Route///////////////////////////////////////
 
 app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res) {
   var orgId = req.user.customData.userOrg;
@@ -67,6 +71,8 @@ app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res
   }
 
 });
+
+///////////////////////////////Shot a Customers Details///////////////////////////////
 
 app.get("/customer/:id", stormpath.loginRequired, function(req, res) {
   Customer.findById(req.params.id, function(err, customerRef) {
@@ -80,10 +86,14 @@ app.get("/customer/:id", stormpath.loginRequired, function(req, res) {
 
 });
 
+//////////////////////////////Show The new Customer Route///////////////////////////////////
+
 app.get('/customers/new', stormpath.loginRequired, function(req, res) {
   res.render("newCustomer");
 });
 
+
+////////////////////////////Create an Organization Route////////////////////////////////////
 
 app.post('/userNew', stormpath.loginRequired, function(req, res) {
   var orgIdSimple = req.body.orgName;
@@ -110,6 +120,7 @@ app.post('/userNew', stormpath.loginRequired, function(req, res) {
  });
 });
 
+////////////////////////////////////Create a Customer Route///////////////////////////////
 
 app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
   var cusFirstName = req.body.cusFirstName;
@@ -133,6 +144,8 @@ app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
   });
 });
 
+////////////////////////////////////////Edit A Customer Route/////////////////////////////////////
+
 app.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(req, res) {
   // req.body.customer.body = req.sanitize(req.customer.customer.body);
   var orgId = req.user.customData.userOrg;
@@ -146,6 +159,8 @@ app.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(re
   });
 });
 
+///////////////////////////////////////Delete a Customer Route/////////////////////////////////////////////
+
 app.delete("/customer/:id", stormpath.loginRequired, stormpath.getUser, function(req, res) {
   var orgId = req.user.customData.userOrg;
   Customer.findByIdAndRemove(req.params.id, function(err) {
@@ -158,6 +173,7 @@ app.delete("/customer/:id", stormpath.loginRequired, stormpath.getUser, function
     }
   });
 });
+
 
 //app launch
 app.listen(process.env.PORT || 3000, function() {
