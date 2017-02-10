@@ -6,7 +6,9 @@ var express = require('express'),
     Customer = require("./public/models/customer"),
     stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
-    expressSanitizer = require("express-sanitizer");
+    expressSanitizer = require("express-sanitizer"),
+    showLanding = require("./public/routes/showLanding.js"),
+    showCustomerIndex = require("./public/routes/showCustomerIndex.js");
 
 
 //app config
@@ -35,11 +37,12 @@ var db = mongoose.connection;
 
 
 //Rest Routes
-app.get("/", function(req, res) {
-  res.render("landing");
-});
+// app.get("/", function(req, res) {
+//   res.render("landing");
+// });
+app.use('/', showLanding);
 
-//This is the customer Index route that shows a list of customerSchema
+// This is the customer Index route that shows a list of customerSchema
 app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
     Organization.findById(req.params.orgId, function(err, foundOrganization) {
         if(err) {
@@ -56,7 +59,6 @@ app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
         }
     });
 });
-
 
 app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res) {
   var orgId = req.user.customData.userOrg;
