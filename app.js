@@ -7,8 +7,14 @@ var express = require('express'),
     stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer"),
+<<<<<<< Updated upstream
     showLanding = require("./public/routes/showLanding.js"),
     showCustomerIndex = require("./public/routes/showCustomerIndex.js");
+=======
+    router = express.Router(),
+    showLandingRoute = require('./public/routes/showLanding.js'),
+    showCustomerIndex = require('./public/routes/showCustomerIndex.js');
+>>>>>>> Stashed changes
 
 
 //app config
@@ -40,25 +46,51 @@ var db = mongoose.connection;
 // app.get("/", function(req, res) {
 //   res.render("landing");
 // });
-app.use('/', showLanding);
+
+
 
 // This is the customer Index route that shows a list of customerSchema
-app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
-    Organization.findById(req.params.orgId, function(err, foundOrganization) {
-        if(err) {
-            res.redirect("/");
-        } else {
-            Customer.find({}, function(err, allCustomers) {
-              if (err) {
-                  console.log(err);
-              } else {
-                  console.log(allCustomers);
-                  res.render("customerIndex", {organization: foundOrganization, customers: allCustomers});
-              }
-            });
-        }
-    });
-});
+// app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
+//     Organization.findById(req.params.orgId, function(err, foundOrganization) {
+//         if(err) {
+//             res.redirect("/");
+//         } else {
+//             Customer.find({}, function(err, allCustomers) {
+//               if (err) {
+//                   console.log(err);
+//               } else {
+//                   console.log(allCustomers);
+//                   res.render("customerIndex", {organization: foundOrganization, customers: allCustomers});
+//               }
+//             });
+//         }
+//     });
+// });
+
+///////////////////////////Show Customer Index Route////////////////////////////////
+
+//This is the customer Index route that shows a list of customerSchema
+// app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
+//     Organization.findById(req.params.orgId, function(err, foundOrganization) {
+//         if(err) {
+//             res.redirect("/");
+//         } else {
+//             Customer.find({}, function(err, allCustomers) {
+//               if (err) {
+//                   console.log(err);
+//               } else {
+//                   console.log(allCustomers);
+//                   res.render("customerIndex", {organization: foundOrganization, customers: allCustomers});
+//               }
+//             });
+//         }
+//     });
+// });
+
+app.get('/customerIndex/:id', showCustomerIndex);
+app.get("/", showLandingRoute);
+///////////////////////////////New Organization Check Route///////////////////////////////////////
+
 
 app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res) {
   var orgId = req.user.customData.userOrg;
