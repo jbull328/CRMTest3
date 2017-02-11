@@ -9,7 +9,8 @@ var express = require('express'),
     expressSanitizer = require("express-sanitizer"),
     router = express.Router(),
     showLandingRoute = require('./public/routes/showLanding.js'),
-    showCustomerIndex = require('./public/routes/showCustomerIndex.js');
+    showNewOrganizationRoute = require('./public/routes/showNewOrganization.js'),
+    showCustomerIndexRoute = require('./public/routes/showCustomerIndex.js');
 
 
 
@@ -37,66 +38,12 @@ var mongodbUri = "mongodb://heroku_2vbj6xl4:713tteam22ns19hkqj90ioeeuc@ds151048.
 mongoose.connect(mongodbUri);
 var db = mongoose.connection;
 
+///////////////////////////////Router Calls//////////////////////////////////////////////////////
 
-//Rest Routes
-// app.get("/", function(req, res) {
-//   res.render("landing");
-// });
-
-
-
-// This is the customer Index route that shows a list of customerSchema
-// app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
-//     Organization.findById(req.params.orgId, function(err, foundOrganization) {
-//         if(err) {
-//             res.redirect("/");
-//         } else {
-//             Customer.find({}, function(err, allCustomers) {
-//               if (err) {
-//                   console.log(err);
-//               } else {
-//                   console.log(allCustomers);
-//                   res.render("customerIndex", {organization: foundOrganization, customers: allCustomers});
-//               }
-//             });
-//         }
-//     });
-// });
-
-///////////////////////////Show Customer Index Route////////////////////////////////
-
-//This is the customer Index route that shows a list of customerSchema
-// app.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
-//     Organization.findById(req.params.orgId, function(err, foundOrganization) {
-//         if(err) {
-//             res.redirect("/");
-//         } else {
-//             Customer.find({}, function(err, allCustomers) {
-//               if (err) {
-//                   console.log(err);
-//               } else {
-//                   console.log(allCustomers);
-//                   res.render("customerIndex", {organization: foundOrganization, customers: allCustomers});
-//               }
-//             });
-//         }
-//     });
-// });
-
-app.get('/customerIndex/:id', showCustomerIndex);
+app.get('/customerIndex/:id', showCustomerIndexRoute);
+app.get('/userNew', showNewOrganizationRoute);
 app.get("/", showLandingRoute);
-///////////////////////////////New Organization Check Route///////////////////////////////////////
 
-
-app.get("/userNew",stormpath.loginRequired, stormpath.getUser, function(req, res) {
-  var orgId = req.user.customData.userOrg;
-  if (req.user.customData.userOrg != null) {
-    res.redirect("/customerIndex/" + orgId);
-  } else {
-    res.render("userNew");
-  }
-
-});
 
 app.get("/customer/:id", stormpath.loginRequired, function(req, res) {
   Customer.findById(req.params.id, function(err, customerRef) {
