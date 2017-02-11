@@ -10,7 +10,8 @@ var express = require('express'),
     router = express.Router(),
     showLandingRoute = require('./public/routes/showLanding.js'),
     showNewOrganizationRoute = require('./public/routes/showNewOrganization.js'),
-    showCustomerIndexRoute = require('./public/routes/showCustomerIndex.js');
+    showCustomerIndexRoute = require('./public/routes/showCustomerIndex.js'),
+    showCustomer = require('./public/routes/showCustomer.js');
 
 
 
@@ -42,24 +43,9 @@ var db = mongoose.connection;
 
 app.get('/customerIndex/:id', showCustomerIndexRoute);
 app.get('/userNew', showNewOrganizationRoute);
+app.get('/customer/:id', showCustomer);
+app.get('/customers/new', showCustomer);
 app.get("/", showLandingRoute);
-
-
-app.get("/customer/:id", stormpath.loginRequired, function(req, res) {
-  Customer.findById(req.params.id, function(err, customerRef) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(customerRef);
-      res.render("customer", {customer: customerRef});
-    }
-  });
-
-});
-
-app.get('/customers/new', stormpath.loginRequired, function(req, res) {
-  res.render("newCustomer");
-});
 
 
 app.post('/userNew', stormpath.loginRequired, function(req, res) {
