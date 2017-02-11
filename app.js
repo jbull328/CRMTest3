@@ -12,7 +12,8 @@ var express = require('express'),
     showNewOrganizationRoute = require('./public/routes/showNewOrganization.js'),
     showCustomerIndexRoute = require('./public/routes/showCustomerIndex.js'),
     showCustomer = require('./public/routes/showCustomer.js'),
-    createNewOrganizationRoute = require('./public/routes/createNewOrganization.js');
+    createNewOrganizationRoute = require('./public/routes/createNewOrganization.js'),
+    createNewCustomerRoute = require('./public/routes/createNewCustomer.js');
 
 
 
@@ -49,30 +50,8 @@ app.get('/customers/new', showCustomer);
 app.get("/", showLandingRoute);
 
 app.post("/userNew", createNewOrganizationRoute);
+app.post("/newCustomer", createNewCustomerRoute);
 
-
-
-app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
-  var cusFirstName = req.body.cusFirstName;
-  var cusLastName = req.body.cusLastName;
-  var cusAddress = req.body.cusAddress;
-  var cusEmail = req.body.cusEmail;
-  var orgId = Organization.findById(req.params.orgId, function(err, foundOrgId) {
-    if(err) {
-      console.log(err);
-    } else {
-    orgId = {orgId: foundOrgId};
-    }
-  });
-  var newCustomer = {cusFirstName: cusFirstName, cusLastName: cusLastName, cusAddress: cusAddress, cusEmail: cusEmail,}
-  Customer.create(newCustomer, function(err, newlyCreatedCust) {
-    if(err) {
-      console.log(err);
-    } else {
-      res.redirect("/customerIndex/" + orgId);
-    }
-  });
-});
 
 app.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(req, res) {
   // req.body.customer.body = req.sanitize(req.customer.customer.body);
