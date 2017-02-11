@@ -7,14 +7,10 @@ var express = require('express'),
     stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer"),
-<<<<<<< Updated upstream
-    showLanding = require("./public/routes/showLanding.js"),
-    showCustomerIndex = require("./public/routes/showCustomerIndex.js");
-=======
     router = express.Router(),
     showLandingRoute = require('./public/routes/showLanding.js'),
     showCustomerIndex = require('./public/routes/showCustomerIndex.js');
->>>>>>> Stashed changes
+
 
 
 //app config
