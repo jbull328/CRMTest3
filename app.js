@@ -11,7 +11,8 @@ var express = require('express'),
     showLandingRoute = require('./public/routes/showLanding.js'),
     showNewOrganizationRoute = require('./public/routes/showNewOrganization.js'),
     showCustomerIndexRoute = require('./public/routes/showCustomerIndex.js'),
-    showCustomer = require('./public/routes/showCustomer.js');
+    showCustomer = require('./public/routes/showCustomer.js'),
+    createNewOrganizationRoute = require('./public/routes/createNewOrganization.js');
 
 
 
@@ -47,31 +48,8 @@ app.get('/customer/:id', showCustomer);
 app.get('/customers/new', showCustomer);
 app.get("/", showLandingRoute);
 
+app.post("/userNew", createNewOrganizationRoute);
 
-app.post('/userNew', stormpath.loginRequired, function(req, res) {
-  var orgIdSimple = req.body.orgName;
-  var orgIdSimple = orgIdSimple.replace(/\s/g, '');
-  req.user.customData.userOrg = orgIdSimple;
-  req.user.customData.save(function(err) {
-    if (err) {
-      console.log(err);  // this will throw an error if something breaks when you try to save your changes
-    } else {
-    }
-  });
-  var userEmail = req.user.email;
-  var orgId = req.body.orgName;
-  var givenName = req.body.givenName;
-  var surname = req.body.surname;
-  var newOrganization = {orgId: orgId, givenName: givenName, surname: surname, userEmail: userEmail,};
-  //create a new campground and save to DB
-  Organization.create(newOrganization, function(err, newlyCreated) {
-   if(err) {
-       console.log(err);
-   } else {
-      res.redirect("/customerIndex/" + orgIdSimple);
-   }
- });
-});
 
 
 app.post('/newCustomer', stormpath.loginRequired, function(req, res) {
