@@ -13,8 +13,8 @@ var express = require('express'),
     showCustomerIndexRoute = require('./public/routes/showCustomerIndex.js'),
     showCustomer = require('./public/routes/showCustomer.js'),
     createNewOrganizationRoute = require('./public/routes/createNewOrganization.js'),
-    createNewCustomerRoute = require('./public/routes/createNewCustomer.js');
-
+    createNewCustomerRoute = require('./public/routes/createNewCustomer.js'),
+    editCustomerRoute = require('./public/routes/editCustomer.js');
 
 
 //app config
@@ -31,11 +31,8 @@ app.use(stormpath.init(app, {
     customData: true,
   }
 }));
+
 app.use(methodOverride('_method'));
-
-
-
-
 app.use(bodyParser.urlencoded({extended: true}));
 var mongodbUri = "mongodb://heroku_2vbj6xl4:713tteam22ns19hkqj90ioeeuc@ds151048.mlab.com:51048/heroku_2vbj6xl4";
 mongoose.connect(mongodbUri);
@@ -52,32 +49,9 @@ app.get("/", showLandingRoute);
 app.post("/userNew", createNewOrganizationRoute);
 app.post("/newCustomer", createNewCustomerRoute);
 
+app.put('/customer/:id', editCustomerRoute);
+app.delete("/customer/:id", editCustomerRoute);
 
-app.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(req, res) {
-  // req.body.customer.body = req.sanitize(req.customer.customer.body);
-  var orgId = req.user.customData.userOrg;
-  Customer.findByIdAndUpdate(req.params.id, req.body.customer, function(err, updatedCustomer) {
-    if (err) {
-      console.log(err);
-      res.redirect("customerIndex/" + orgId);
-    } else {
-      res.redirect("/customerIndex/" + orgId);
-    }
-  });
-});
-
-app.delete("/customer/:id", stormpath.loginRequired, stormpath.getUser, function(req, res) {
-  var orgId = req.user.customData.userOrg;
-  Customer.findByIdAndRemove(req.params.id, function(err) {
-    if (err) {
-      console.log(err);
-      res.redirect("customerIndex/" + orgId);
-    } else {
-      console.log("success")
-      res.redirect("/customerIndex/" + orgId);
-    }
-  });
-});
 
 //app launch
 app.listen(process.env.PORT || 3000, function() {
