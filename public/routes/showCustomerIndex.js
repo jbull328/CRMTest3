@@ -7,7 +7,7 @@ var express = require("express"),
     stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
-    
+
 
 router.use(function(req, res, next) {
   next();
@@ -17,7 +17,8 @@ router.get("/customerIndex/:id",stormpath.loginRequired, function(req, res) {
         if(err) {
             res.redirect("/");
         } else {
-            Customer.find({}, function(err, allCustomers) {
+            var orgId = req.user.customData.userOrg;
+            Customer.find({"orgId" : orgId}, function(err, allCustomers) {
               if (err) {
                   console.log(err);
               } else {
