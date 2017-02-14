@@ -1,7 +1,12 @@
 <% include ./partials/header %>
 
 <div class="ui container" id="cusomersDisplay">
-
+   <a class="ui animated fade button" href="/emailForm/">
+    <div class="visible content">Send out an Email</div>
+    <div class="hidden content">
+      Choose a Template
+    </div>
+  </a>
   <table class="ui celled table">
   <thead>
     <tr>
@@ -39,4 +44,6 @@
   </tbody>
   </table>
 </div>
+
+<script src="/scripts/customerIndexEvents.js"></script>
 <% include ./partials/footer %>

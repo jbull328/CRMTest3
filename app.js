@@ -14,7 +14,8 @@ var express = require('express'),
     showCustomer = require('./public/routes/showCustomer.js'),
     createNewOrganizationRoute = require('./public/routes/createNewOrganization.js'),
     createNewCustomerRoute = require('./public/routes/createNewCustomer.js'),
-    editCustomerRoute = require('./public/routes/editCustomer.js');
+    editCustomerRoute = require('./public/routes/editCustomer.js'),
+    showEmailForm = require('./public/routes/showEmailForm.js');
 
 
 //app config
@@ -45,6 +46,7 @@ app.get('/userNew', showNewOrganizationRoute);
 app.get('/customer/:id', showCustomer);
 app.get('/customers/new', showCustomer);
 app.get("/", showLandingRoute);
+app.get("/emailForm", showEmailForm);
 
 app.post("/userNew", createNewOrganizationRoute);
 app.post("/newCustomer", createNewCustomerRoute);
