@@ -15,9 +15,12 @@ var express = require('express'),
     createNewOrganizationRoute = require('./public/routes/createNewOrganization.js'),
     createNewCustomerRoute = require('./public/routes/createNewCustomer.js'),
     editCustomerRoute = require('./public/routes/editCustomer.js'),
+    sendEmail = require('./public/routes/sendEmail.js'),
     showEmailForm = require('./public/routes/showEmailForm.js');
 
-
+    var SparkPost = require('sparkpost');
+    var client = new SparkPost('Eac9af8c3f55a9e8d6d0ce0b66ea0df89c410105');
+    
 //app config
 app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
@@ -50,6 +53,7 @@ app.get("/emailForm", showEmailForm);
 
 app.post("/userNew", createNewOrganizationRoute);
 app.post("/newCustomer", createNewCustomerRoute);
+app.post("/emailSend", sendEmail);
 
 app.put('/customer/:id', editCustomerRoute);
 app.delete("/customer/:id", editCustomerRoute);
