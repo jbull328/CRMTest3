@@ -9,17 +9,16 @@ var express = require("express"),
     expressSanitizer = require("express-sanitizer");
 
 var SparkPost = require('sparkpost');
-var client = new SparkPost('Eac9af8c3f55a9e8d6d0ce0b66ea0df89c410105');
+var client = new SparkPost('4c6dbaf145192b72b93bd1f3593a9cd13aa2ac36');
 
 
 router.use(function(req, res, next) {
-
   client.transmissions.send({
       options: {
-        sandbox: true
+        sandbox: false
       },
       content: {
-        from: 'testing@sparkpostbox.com',
+        from: 'info@jbull.co',
         subject: 'Hello, World!',
         html:'<html><body><p>Testing SparkPost - the world\'s most awesomest email service!</p></body></html>'
       },
@@ -38,8 +37,9 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.post('/newCustomer', stormpath.loginRequired, function(req, res) {
+router.post('/emailSend', stormpath.loginRequired, stormpath.getUser, function(req, res) {
   var orgId = req.user.customData.userOrg;
-  res.redirect("customerIndex.ejs", orgId);
+  res.redirect("/customerIndex/"+ orgId);
 });
+
   module.exports = router;

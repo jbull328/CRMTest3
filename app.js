@@ -19,8 +19,8 @@ var express = require('express'),
     showEmailForm = require('./public/routes/showEmailForm.js');
 
     var SparkPost = require('sparkpost');
-    var client = new SparkPost('Eac9af8c3f55a9e8d6d0ce0b66ea0df89c410105');
-    
+    var client = new SparkPost('40304b0a8d10c703f5387c63d1e65f6494cc6fcf');
+
 //app config
 app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
