@@ -13,14 +13,16 @@ var client = new SparkPost('4c6dbaf145192b72b93bd1f3593a9cd13aa2ac36');
 
 
 router.use(function(req, res, next) {
+  var subject = req.body.subject;
+  var emailText = req.body.emailText;
   client.transmissions.send({
       options: {
         sandbox: false
       },
       content: {
         from: 'info@jbull.co',
-        subject: 'Hello, World!',
-        html:'<html><body><p>Testing SparkPost - the world\'s most awesomest email service!</p></body></html>'
+        subject: subject,
+        html:'<html><body><p>'+ emailText +'</p></body></html>'
       },
       recipients: [
         {address: 'jackbull328@gmail.com'}
@@ -28,6 +30,7 @@ router.use(function(req, res, next) {
     })
     .then(data => {
       console.log('Woohoo! You just sent your first mailing!');
+      console.log(emailText);
       console.log(data);
     })
     .catch(err => {
