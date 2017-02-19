@@ -15,6 +15,7 @@ var client = new SparkPost('4c6dbaf145192b72b93bd1f3593a9cd13aa2ac36');
 router.use(function(req, res, next) {
   var subject = req.body.subject;
   var emailText = req.body.emailText;
+  var ccEmail = req.body.ccEmail;
   client.transmissions.send({
       options: {
         sandbox: false

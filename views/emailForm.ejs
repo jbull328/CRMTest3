@@ -3,22 +3,28 @@
 <div class="ui container" id="cusomersDisplay">
 
   <div class="ui container" id="newCusFormMain">
+  <form class="ui form" action="/emailSend" method="POST">
     <div class="ui huge header">Send an Email</div>
-    <form class="ui form" action="/emailSend" method="POST">
+    <div class="field">
+      <label>Template</label>
+      <div class="fields">
+        <div class="field">
+          <select class="ui fluid search dropdown" name="template">
+            <option value="">Template</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="field">
       <label>Subject</label>
       <input type="text" name="subject" value="" placeholder="Subject">
     </div>
     <div class="field">
-      <label>CC</label>
-      <input type="text" name="" value="" placeholder="CC">
-    </div>
-    <div class="field">
       <label>Body</label>
-      <input type="text" name="emailText" value="" placeholder="">
+      <textarea type="text" name="emailText" value="" placeholder=""></textarea>
     </div>
     <button class="ui button" type="submit">Send</button>
-    <button class="ui button" type="cancel">Cancel</button>
+    <a href="/"  class="ui button" type="button">Cancel</a>
   </form>
   </div>
 </div>

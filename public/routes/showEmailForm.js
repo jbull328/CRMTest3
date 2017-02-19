@@ -8,13 +8,33 @@ var express = require("express"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
+    var SparkPost = require('sparkpost');
+    var client = new SparkPost('4c6dbaf145192b72b93bd1f3593a9cd13aa2ac36');
+
 router.use(function(req, res, next) {
+  client.templates.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
     next();
   });
 
 router.get("/emailForm/", stormpath.loginRequired, stormpath.getUser, function(req, res) {
-    console.log("the send email button has been clicked");
-    res.render("emailForm.ejs");
+    Organization.findById(req.params.orgId, function(err, foundOrg) {
+      var orgId = req.user.customData.userOrg;
+      if (err){
+        console.log(err);
+      } else {
+        res.render("emailForm.ejs", {organization: foundOrg});
+      }
+    })
+
+
 });
 
 module.exports = router;
