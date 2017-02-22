@@ -10,8 +10,8 @@
       <div class="fields">
         <div class="field">
           <select class="ui fluid search dropdown" name="template">
-            <% templateData.forEach(function(templates) { %>
-                <option value=""><%= templates.id.value %></option>
+            <% templates.forEach(function(template) { %>
+                <option value=""><%= template.id %></option>
           <%  }); %>
           </select>
         </div>

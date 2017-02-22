@@ -31,7 +31,16 @@ router.use(function(req, res, next) {
         if (err){
           console.log(err);
         } else {
-          res.render("emailForm.ejs", {organization: foundOrg);
+          client.templates.list(function(err, data) {
+            if (err) {
+              console.log('Whoops! Something went wrong');
+              console.log(err);
+            } else {
+              console.log('Congrats you can use our client library!');
+              console.log(data);
+              res.render("emailForm.ejs", {organization: foundOrg, templates: data.results,});
+          }
+        });
         }
       });
   });
