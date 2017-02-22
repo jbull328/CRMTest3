@@ -10,6 +10,7 @@ var express = require("express"),
 
     var SparkPost = require('sparkpost');
     var client = new SparkPost('4c6dbaf145192b72b93bd1f3593a9cd13aa2ac36');
+    var templateData;
 
 router.use(function(req, res, next) {
   client.templates.list()
@@ -24,17 +25,17 @@ router.use(function(req, res, next) {
     next();
   });
 
-router.get("/emailForm/", stormpath.loginRequired, stormpath.getUser, function(req, res) {
-    Organization.findById(req.params.orgId, function(err, foundOrg) {
-      var orgId = req.user.customData.userOrg;
-      if (err){
-        console.log(err);
-      } else {
-        res.render("emailForm.ejs", {organization: foundOrg});
-      }
-    })
+  router.get("/emailForm/", stormpath.loginRequired, stormpath.getUser, function(req, res) {
+      Organization.findById(req.params.orgId, function(err, foundOrg) {
+        var orgId = req.user.customData.userOrg;
+        if (err){
+          console.log(err);
+        } else {
+          res.render("emailForm.ejs", {organization: foundOrg);
+        }
+      });
+  });
 
 
-});
 
 module.exports = router;
