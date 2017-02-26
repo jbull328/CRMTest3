@@ -38,6 +38,17 @@ router.use(function(req, res, next) {
             } else {
               console.log('Congrats you can use our client library!');
               console.log(data);
+              data.results.forEach(function(){
+                client.templates.get(data.results.id, function(err, indevidualTemplates) {
+                if (err) {
+                  console.log('Whoops! Something went wrong');
+                  console.log(err);
+                } else {
+                  console.log('**These are the indevidualTemplates**');
+                  console.log(indevidualTemplates);
+                }
+              });
+            });
               res.render("emailForm.ejs", {organization: foundOrg, templates: data.results,});
           }
         });

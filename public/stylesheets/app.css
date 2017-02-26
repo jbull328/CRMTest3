@@ -26,6 +26,11 @@
 
 }
 
+#emailFormMain {
+  margin: 95px auto 0 auto;
+  width: 60%;
+
+}
 #newUserFormMain {
   margin: 80px auto 0 auto;
   width: 60%;
