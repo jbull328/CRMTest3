@@ -49,7 +49,7 @@ router.use(function(req, res, next) {
                 }
               });
             });
-              res.render("emailForm.ejs", {organization: foundOrg, templates: data.results,});
+              res.render("emailForm.ejs", {organization: foundOrg, templates: data.results, indevidualTemplates: data.results,});
           }
         });
         }

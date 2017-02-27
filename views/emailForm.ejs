@@ -1,5 +1,5 @@
 <% include ./partials/header %>
-
+<script src="/scripts/emailForm.js"></script>
 <div class="ui container" id="cusomersDisplay">
 
   <div class="ui container" id="emailFormMain">
@@ -17,7 +17,27 @@
         </div>
       </div>
     </div>
-    <a href="/templatePreview" class="ui button" type="button">Preview</a>
+    <a href="#" id="emailPreviewButton" class="ui button" type="button">Preview</a>
+    <%# Modal for the email preview%>
+    <div class="ui basic modal" id="emailPreview">
+      <div class="ui icon header">
+        <i class="mail icon"></i>
+        <%= indevidualTemplates.id %>
+      </div>
+      <div class="content">
+        <%= indevidualTemplates.content.html %>
+      </div>
+      <div class="actions">
+        <div class="ui red basic cancel inverted button">
+          <i class="remove icon"></i>
+          No
+        </div>
+        <div class="ui green ok inverted button">
+          <i class="checkmark icon"></i>
+          Yes
+        </div>
+      </div>
+    </div>
     <div class="field">
       <label>Subject</label>
       <input type="text" name="subject" value="" placeholder="Subject">
