@@ -46,10 +46,11 @@ router.use(function(req, res, next) {
                 } else {
                   console.log('**These are the indevidualTemplates**');
                   console.log(indevidualTemplates);
+                  res.render("emailForm.ejs", {organization: foundOrg, templates: data.results, indevidualTemplates: indevidualTemplates.results,});
+
                 }
               });
             });
-              res.render("emailForm.ejs", {organization: foundOrg, templates: data.results, indevidualTemplates: data.results,});
           }
         });
         }

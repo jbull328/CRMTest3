@@ -9,7 +9,7 @@
       <label>Template</label>
       <div class="fields">
         <div class="field">
-          <select class="ui fluid search dropdown" name="template">
+          <select id="emailTemplateSelector" class="ui fluid search dropdown" name="template">
             <% templates.forEach(function(template) { %>
                 <option value=""><%= template.id %></option>
           <%  }); %>
@@ -19,14 +19,12 @@
     </div>
     <a href="#" id="emailPreviewButton" class="ui button" type="button">Preview</a>
     <%# Modal for the email preview%>
-    <div class="ui basic modal" id="emailPreview">
+    <div class="ui modal" id="emailPreview">
       <div class="ui icon header">
         <i class="mail icon"></i>
-        <%= indevidualTemplates.id %>
+        <%= indevidualTemplates.name %>
       </div>
-      <div class="content">
         <%= indevidualTemplates.content.html %>
-      </div>
       <div class="actions">
         <div class="ui red basic cancel inverted button">
           <i class="remove icon"></i>
