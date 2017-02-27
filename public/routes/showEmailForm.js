@@ -38,8 +38,8 @@ router.use(function(req, res, next) {
             } else {
               console.log('Congrats you can use our client library!');
               console.log(data);
-              data.results.forEach(function(){
-                client.templates.get(data.results.id, function(err, indevidualTemplates) {
+              data.results.forEach(function(indevidualTemplates){
+                client.templates.get(indevidualTemplates.id, function(err, indevidualTemplates) {
                 if (err) {
                   console.log('Whoops! Something went wrong');
                   console.log(err);
