@@ -4,7 +4,6 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Organization = require("../models/organization"),
     Customer = require("../models/customer"),
-    stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -13,7 +12,7 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get("/customer/:id", stormpath.loginRequired, function(req, res) {
+router.get("/customer/:id", function(req, res) {
   Customer.findById(req.params.id, function(err, customerRef) {
     if (err) {
       console.log(err);
@@ -25,7 +24,7 @@ router.get("/customer/:id", stormpath.loginRequired, function(req, res) {
 
 });
 
-router.get('/customers/new', stormpath.loginRequired, function(req, res) {
+router.get('/customers/new', function(req, res) {
   res.render("newCustomer.ejs");
 });
 

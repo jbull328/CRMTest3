@@ -4,7 +4,6 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Organization = require("../models/organization"),
     Customer = require("../models/customer"),
-    stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -41,7 +40,7 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.post('/emailSend', stormpath.loginRequired, stormpath.getUser, function(req, res) {
+router.post('/emailSend',  function(req, res) {
   var orgId = req.user.customData.userOrg;
   res.redirect("/customerIndex/"+ orgId);
 });

@@ -4,7 +4,6 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Organization = require("../models/organization"),
     Customer = require("../models/customer"),
-    stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -13,7 +12,7 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.post('/userNew', stormpath.loginRequired, function(req, res) {
+router.post('/userNew',  function(req, res) {
   var orgIdSimple = req.body.orgName;
   var orgIdSimple = orgIdSimple.replace(/\s/g, '');
   req.user.customData.userOrg = orgIdSimple;

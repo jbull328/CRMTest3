@@ -4,7 +4,6 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Organization = require("../models/organization"),
     Customer = require("../models/customer"),
-    stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -12,7 +11,7 @@ var express = require("express"),
 router.use(function(req, res, next) {
   next();
 });
-router.post('/newCustomer', stormpath.loginRequired, function(req, res) {
+router.post('/newCustomer', function(req, res) {
   var cusFirstName = req.body.cusFirstName;
   var cusLastName = req.body.cusLastName;
   var cusAddress = req.body.cusAddress;

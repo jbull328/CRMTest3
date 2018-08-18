@@ -4,7 +4,6 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Organization = require("../models/organization"),
     Customer = require("../models/customer"),
-    stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -12,7 +11,7 @@ var express = require("express"),
 router.use(function(req, res, next) {
   next();
 });
-router.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function(req, res) {
+router.put('/customer/:id',  function(req, res) {
   // req.body.customer.body = req.sanitize(req.customer.customer.body);
   var orgId = req.user.customData.userOrg;
   Customer.findByIdAndUpdate(req.params.id, req.body.customer, function(err, updatedCustomer) {
@@ -25,7 +24,7 @@ router.put('/customer/:id', stormpath.loginRequired, stormpath.getUser, function
   });
 });
 
-router.delete("/customer/:id", stormpath.loginRequired, stormpath.getUser, function(req, res) {
+router.delete("/customer/:id",  function(req, res) {
   var orgId = req.user.customData.userOrg;
   Customer.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
