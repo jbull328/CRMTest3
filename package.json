@@ -10,9 +10,9 @@
   "author": "John Bull",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.18.3",
     "ejs": "^2.5.5",
-    "express": "^4.14.0",
+    "express": "^4.16.3",
     "express-sanitizer": "^1.0.1",
     "method-override": "^2.3.7",
     "mongoose": "^4.7.5",

@@ -4,7 +4,6 @@ var express = require('express'),
     mongoose = require('mongoose'),
     Organization = require("./public/models/organization"),
     Customer = require("./public/models/customer"),
-    stormpath = require('express-stormpath'),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer"),
     router = express.Router(),
@@ -25,16 +24,7 @@ var express = require('express'),
 app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
-app.use(stormpath.init(app, {
-  apiKeyFile: '/.stormpath/apiKey.properties',
-  apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-  secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-  application:  process.env.STORMPATH_URL || 'url',
-  expand: {
-    customData: true,
-  }
-}));
+
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
